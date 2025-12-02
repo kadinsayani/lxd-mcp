@@ -411,6 +411,9 @@ type ExecInstanceArgs struct {
 }
 
 func (lt *LXDTools) ExecInstance(ctx context.Context, req *mcp.CallToolRequest, args ExecInstanceArgs) (*mcp.CallToolResult, any, error) {
+	cmdStr, _ := json.Marshal(args.Command)
+	log.Printf("Executing command on instance %s: %s", args.Name, string(cmdStr))
+
 	apiReq := api.InstanceExecPost{
 		Command:     args.Command,
 		WaitForWS:   true,
@@ -435,7 +438,7 @@ func (lt *LXDTools) ExecInstance(ctx context.Context, req *mcp.CallToolRequest, 
 	opAPI := op.Get()
 	exitCode := int(opAPI.Metadata["return"].(float64))
 
-	result := fmt.Sprintf("Command executed with exit code: %d", exitCode)
+	result := fmt.Sprintf("Executed command: %s\nExit code: %d", string(cmdStr), exitCode)
 	if stdout.Len() > 0 {
 		result += fmt.Sprintf("\nStdout:\n%s", stdout.String())
 	}
