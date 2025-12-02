@@ -2,6 +2,8 @@
 
 A Model Context Protocol (MCP) server for managing LXD containers and virtual machines.
 
+![demo.gif](doc/demo.gif)
+
 ## Features
 
 This MCP server provides the following tools:
