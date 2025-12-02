@@ -188,18 +188,23 @@ The MCP server can also communicate directly via JSON-RPC 2.0 over stdin/stdout:
 
 The server uses the LXD Go client library (`github.com/canonical/lxd/client`) to interact with LXD via the Unix socket at `/var/snap/lxd/common/lxd/unix.socket` (or `/var/lib/lxd/unix.socket` for non-snap installations).
 
-### Code Structure
+### Project Structure
 
-- `main.go` - Main MCP server implementation
-  - `LXDTools` - Struct holding LXD client connection
-  - `NewLXDTools()` - Initializes connection to LXD Unix socket
-  - Tool methods - Individual functions for each LXD operation:
-    - `ListInstances()`, `GetInstance()`, `GetInstanceState()`
-    - `CreateInstance()`, `DeleteInstance()`, `RenameInstance()`, `UpdateInstance()`
-    - `StartInstance()`, `StopInstance()`, `RestartInstance()`
-    - `FreezeInstance()`, `UnfreezeInstance()`
-    - `ExecInstance()`, `ListImages()`
-  - `main()` - Initializes MCP server and registers all tools
+```
+lxd-mcp/
+├── main.go                          # Application entry point
+├── internal/
+│   ├── lxd/                         # LXD tools package
+│   │   ├── client.go                # Tools struct and LXD connection
+│   │   ├── types.go                 # Argument type definitions
+│   │   ├── instances.go             # Instance CRUD operations
+│   │   ├── lifecycle.go             # Start/stop/restart operations
+│   │   ├── exec.go                  # Command execution
+│   │   └── images.go                # Image management
+│   └── server/                      # MCP server setup
+│       └── server.go                # Tool registration and server initialization
+└── doc/                             # Documentation assets
+```
 
 ## Future Enhancements
 
