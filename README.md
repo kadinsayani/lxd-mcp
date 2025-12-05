@@ -209,13 +209,15 @@ lxd-mcp/
 ## Future Enhancements
 
 Potential additions:
-- Snapshot management
-- File push/pull operations
-- Network configuration
-- Storage pool management
-- Profile management
-- Log access
-- Image import/export
+- [ ] Snapshot management
+- [ ] File push/pull operations
+- [ ] Network configuration
+- [ ] Storage pool management
+- [ ] Profile management
+- [ ] Log access
+- [ ] Image import/export
+- [ ] Metadata API integration
+- [ ] Documentation endpoint integration (snap)
 
 ## Security Considerations
 
